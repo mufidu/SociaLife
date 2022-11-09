@@ -1,0 +1,7 @@
+.Dashboard{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    gap: 0rem;
+    margin-left: -15px;
+}
