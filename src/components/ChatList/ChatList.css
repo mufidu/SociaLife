@@ -1,9 +1,11 @@
 .ChatList{
     display: flex;
     flex-direction: column;
-    gap:1rem;
+    gap:0rem;
     align-items: 20;
     overflow: auto;
-    margin-left: 0px;
+    margin-left: -10px;
+    margin-top: -15px;
+    margin-bottom: -16px;
     background-color: white;
 }

@@ -1,14 +1,14 @@
-import React from 'react'
-import ChatHistory from '../ChatHistory/ChatHistory'
-import ChatSearch from '../ChatSearch/ChatSearch'
-import './ChatList.css'
+import React from "react";
+import ChatHistory from "../ChatHistory/ChatHistory";
+import ChatSearch from "../ChatSearch/ChatSearch";
+import "./ChatList.css";
 function ChatList() {
   return (
     <div className="ChatList">
-        <ChatSearch/>
-        <ChatHistory/>
+      <ChatSearch />
+      <ChatHistory />
     </div>
-  )
+  );
 }
 
-export default ChatList
+export default ChatList;

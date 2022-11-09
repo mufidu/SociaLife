@@ -1,0 +1,30 @@
+.ChatWindow {
+    background-color: white;
+    margin-top: -15px;
+    margin-bottom: -15px;
+}
+
+.TextBox {
+    display: flex;
+    background-color: #E6EBF5;
+    border-radius: 20px;
+    border: 2px;
+    padding: 10px;
+    width: 1000px;
+    margin-top: 6rem;
+    border-color: black;
+    gap: 1rem;
+}
+
+.TextBox>input{
+    background-color: #E6EBF5;
+    border: none;
+    padding: none;
+    width: 900px;
+}
+
+.sendButton {
+    align-self: flex-end;
+    width: 70px;
+    height: 25px;
+}

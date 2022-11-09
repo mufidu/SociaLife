@@ -1,5 +1,6 @@
 import React from "react";
 import ChatList from "../../components/ChatList/ChatList";
+import ChatWindow from "../../components/ChatWindow/ChatWindow";
 import Dashboard from "../../components/Dashboard/Dashboard";
 
 import "./Home.css";
@@ -8,11 +9,7 @@ const Home = () => {
     <div className="home">
       <Dashboard />
       <ChatList />
-      <div className="chatside">
-        <h2 style={{ marginTop: "20rem", marginLeft: "25rem" }}>
-          CHAT PLACEHOLDER
-        </h2>
-      </div>
+      <ChatWindow />
     </div>
   );
 };
