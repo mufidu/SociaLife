@@ -1,106 +1,53 @@
-/* CSS RESET */
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-/*
-  2. Remove default margin
-*/
-* {
-    margin: 0;
-}
-/*
-  3. Allow percentage-based heights in the application
-*/
-html,
-body {
-    height: 100%;
-}
-/*
-  Typographic tweaks!
-  4. Add accessible line-height
-  5. Improve text rendering
-*/
-body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-}
-/*
-  6. Improve media defaults
-*/
-img,
-picture,
-video,
-canvas,
-svg {
-    display: block;
-    max-width: 100%;
-}
-/*
-  7. Remove built-in form typography styles
-*/
-input,
-button,
-textarea,
-select {
-    font: inherit;
-}
-/*
-  8. Avoid text overflows
-*/
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    overflow-wrap: break-word;
-}
-/*
-  9. Create a root stacking context
-*/
-#root,
-#__next {
-    isolation: isolate;
-}
-
 :root {
-    --yellow: #f5c32c;
-    --orange: #fca61f;
-    --black: #242d49;
-    --gray: rgba(36, 45, 73, 0.65);
-    --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
-    --hrColor: #cfcdcd;
-    --cardColor: rgba(255, 255, 255, 0.64);
-    --buttonBg: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
-    --inputColor: rgba(40, 52, 62, 0.07);
-    --photo: #4cb256;
-    --video: #4a4eb7;
-    --location: #ef5757;
-    --shedule: #e1ae4a;
+  --yellow: #f5c32c;
+  --orange: #fca61f;
+  --black: #242d49;
+  --gray: rgba(36, 45, 73, 0.65);
+  --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
+  --hrColor: #cfcdcd;
+  --cardColor: rgba(255, 255, 255, 0.64);
+  --buttonBg: linear-gradient(98.63deg, #7269F1 0%, #6159CB 100%);
+  --inputColor: rgba(40, 52, 62, 0.07);
+  --photo: #4CB256;
+  --video: #4A4EB7;
+  --location: #EF5757;
+--shedule: #E1AE4A;
 }
 
-body {
-    font-family: "Open Sans", sans-serif;
+.App{
+  overflow: hidden;
+  color: var(--black);
+  background: #f3f3f3;
+  padding: 1rem 1rem;
 }
 
-.App {
-    overflow: hidden;
-    color: var(--black);
-    background: #f3f3f3;
-    padding: 1rem 1rem;
+.blur{
+  position: absolute;
+  width: 22rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: #a6ddf0;
+  filter: blur(72px)
 }
 
-.blur {
-    position: absolute;
-    width: 22rem;
-    height: 14rem;
-    border-radius: 50%;
-    background: aquamarine;
-    filter: blur(2rem);
+.button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border:none;
+  border-radius: 0.5rem;
+  background: var(--buttonBg);
+  transition:all 100ms ease-out;
+}
+
+.button:hover{
+  cursor: pointer;
+  color: var(--orange);
+  background: transparent;
+  border: 2px solid var(--orange);
+}
+
+::-webkit-scrollbar{
+  display: none;
 }
