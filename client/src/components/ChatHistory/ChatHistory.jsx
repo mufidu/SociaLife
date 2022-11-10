@@ -1,4 +1,4 @@
-import { BackgroundImage } from "@mantine/core";
+// import { BackgroundImage } from "@mantine/core";
 import React from "react";
 import person_logo from "../../img/person-circle.svg";
 import "./ChatHistory.css";

@@ -17,7 +17,7 @@
 .App{
   overflow: hidden;
   color: var(--black);
-  background: grey;
+  background: #f3f3f3;
   padding: 1rem 1rem;
 }
 
@@ -46,6 +46,11 @@
   color: var(--orange);
   background: transparent;
   border: 2px solid var(--orange);
+}
+
+.button:disabled{
+  background: silver;
+  pointer-events: none;
 }
 
 ::-webkit-scrollbar{
