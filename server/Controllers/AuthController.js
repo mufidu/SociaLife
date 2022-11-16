@@ -37,7 +37,6 @@ export const registerUser = async (req, res) => {
 };
 
 // login User
-
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -78,4 +77,4 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+};  

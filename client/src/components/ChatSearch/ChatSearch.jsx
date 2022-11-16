@@ -8,7 +8,7 @@ function ChatSearch() {
       <div>
         <span
           style={{
-            fontSize: "15px",
+            fontSize: "35px",
             justifyContent: Center,
             fontWeight: "bold",
             wordSpacing: "10px",
