@@ -17,7 +17,7 @@ function ChatSearch() {
           Chats
         </span>
       </div>
-      <div className="Search">
+      <div className="Search" style={{ backgroundColor: "#E6EBF5" }}>
         <div className="s-icon">
           <UilSearch />
         </div>

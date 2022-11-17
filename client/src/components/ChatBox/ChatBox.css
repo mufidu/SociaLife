@@ -41,10 +41,9 @@
 .own {
   align-self: flex-end;
   border-radius: 1rem 1rem 0 1rem;
-  background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
+  background: #d9d9d9;
+  color: black;
 }
-
-
 
 .chat-sender {
     background: white;
