@@ -1,11 +1,27 @@
 import UserModel from "../Models/userModel.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
+
+// get all users
+export const getAllUsers = async(req, res) => {
+  try {
+    let users = await UserModel.find()
+    users = users.map((user) => {
+      const {password, ...otherDetails} = user._doc
+      return otherDetails
+    })
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 // get a User
 export const getUser = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const user = await UserModel.findById(id);
+    const user = await UserModel.findById(id); 
 
     if (user) {
       const { password, ...otherDetails } = user._doc;
@@ -22,9 +38,9 @@ export const getUser = async (req, res) => {
 // update a user
 export const updateUser = async (req, res) => {
   const id = req.params.id;
-  const { currentUserId, currentUserAdminStatus, password } = req.body;
+  const { _id, currentUserAdminStatus, password } = req.body;
 
-  if (id === currentUserId || currentUserAdminStatus) {
+  if (id === _id) {
     try {
       if (password) {
         const salt = await bcrypt.genSalt(10);
@@ -34,8 +50,12 @@ export const updateUser = async (req, res) => {
       const user = await UserModel.findByIdAndUpdate(id, req.body, {
         new: true,
       });
-
-      res.status(200).json(user);
+      const token = jwt.sign(
+        { username: user.username, id: user._id },
+        process.env.JWT_KEY,
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({user, token});
     } catch (error) {
       res.status(500).json(error);
     }
@@ -62,22 +82,22 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-// add User as a friend
+// add User to friends
 export const addUser = async (req, res) => {
   const id = req.params.id;
 
-  const { currentUserId } = req.body;
+  const { _id } = req.body;
 
-  if (currentUserId === id) {
+  if (_id === id) {
     res.status(403).json("Action forbidden");
   } else {
     try {
-      const addUser = await UserModel.findById(id);
-      // const followingUser = await UserModel.findById(currentUserId);
+      const addedUser = await UserModel.findById(id);
+      const adderUser = await UserModel.findById(_id);
 
-      if (!addUser.friends.includes(currentUserId)) {
-        await addUser.updateOne({ $push: { friends: currentUserId } });
-        // await followingUser.updateOne({ $push: { following: id } });
+      if (!addedUser.friends.includes(_id)) {
+        await addedUser.updateOne({ $push: { friends: _id } });
+        await adderUser.updateOne({ $push: { friends: id } });
         res.status(200).json("User added!");
       } else {
         res.status(403).json("User is Already added by you");
@@ -88,22 +108,22 @@ export const addUser = async (req, res) => {
   }
 };
 
-// remove user from friends
+// remove User from friends
 export const removeUser = async (req, res) => {
   const id = req.params.id;
 
-  const { currentUserId } = req.body;
+  const { _id } = req.body;
 
-  if (currentUserId === id) {
+  if (_id === id) {
     res.status(403).json("Action forbidden");
   } else {
     try {
-      const addUser = await UserModel.findById(id);
-      // const followingUser = await UserModel.findById(currentUserId);
+      const addedUser = await UserModel.findById(id);
+      const adderUser = await UserModel.findById(_id);
 
-      if (addUser.friends.includes(currentUserId)) {
-        await addUser.updateOne({ $pull: { friends: currentUserId } });
-        // await followingUser.updateOne({ $pull: { following: id } });
+      if (addedUser.friends.includes(_id)) {
+        await addedUser.updateOne({ $pull: { friends: _id } });
+        await adderUser.updateOne({ $pull: { friends: id } });
         res.status(200).json("User removed!");
       } else {
         res.status(403).json("User is not added by you");

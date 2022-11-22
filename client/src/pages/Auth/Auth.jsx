@@ -1,40 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
-// import { Center } from "@mantine/core";
-import { useState } from "react";
+import { logIn, signUp } from "../../actions/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn, signUp } from "../../actions/AuthAction.js";
 
 const Auth = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state)=>state.authReducer.loading)
+  
+  const loading = useSelector((state) => state.authReducer.loading);
+
+  // pengecekan kondisi sudah sign up atau belum, jika belum menampilkan halaman login
   const [isSignUp, setIsSignUp] = useState(false);
-  // console.log("loading", loading)
+
+  // menginisiasi data awal pada form
   const [data, setData] = useState({
     username: "",
     password: "",
     confirmpass: "",
   });
 
-  const [confirmPass, setConfirmPass] = useState(true);
+  // pengecekan konfirmasi password saat signup
+  const [confirmpass, setConfirmPass] = useState(true);
 
+  // membuat perubahan data pada form
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  // submit form ke backend-server
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // cek sedang berada di halaman apa
     if (isSignUp) {
-      data.password === data.confirmpass
-        ? dispatch(signUp(data))
-        : setConfirmPass(false);
+      // pengkondisian konfirmasi password
+      if(data.password === data.confirmpass){
+        dispatch(signUp(data))
+      } else {
+        setConfirmPass(false)
+      }
     } else {
       dispatch(logIn(data));
     }
   };
 
+  // mereset data pada form ketika berpindah halaman form
   const resetForm = () => {
     setConfirmPass(true);
     setData({
@@ -46,78 +56,78 @@ const Auth = () => {
 
   return (
     <div className="Auth">
-      <div className="infoForm authForm">
-        <div className="title">
+      <form className="infoForm authForm" onSubmit={handleSubmit}>
+        <div className="logo">
           <img src={Logo} alt="" />
         </div>
-        <form className="infoForm authForm" onSubmit={handleSubmit}>
-          <h3>{isSignUp ? "Sign Up" : "Log In"}</h3>
+        <h3>{isSignUp ? "Sign up" : "Log in"}</h3>
 
-          <div>
-            <input
-              type="text"
-              placeholder="Username"
-              className="infoInput"
-              name="username"
-              onChange={handleChange}
-              value={data.username}
-            />
-          </div>
+        <div>
+          <input
+            type="text"
+            className="infoInput"
+            name="username"
+            placeholder="Username"
+            onChange={handleChange}
+            value={data.username}
+          />
+        </div>
 
+        <div>
+          <input
+            type="password"
+            className="infoInput"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            value={data.password}
+          />
+        </div>
+
+        {isSignUp && (
           <div>
             <input
               type="password"
               className="infoInput"
-              placeholder="Password"
-              name="password"
+              name="confirmpass"
+              placeholder="Confirm Password"
               onChange={handleChange}
-              value={data.password}
+              value={data.confirmpass}
             />
           </div>
+        )}
 
-          {isSignUp && (
-            <div>
-              <input
-                type="password"
-                className="infoInput"
-                placeholder="Confirm Password"
-                name="confirmpass"
-                onChange={handleChange}
-                value={data.confirmpass}
-              />
-            </div>
-          )}
+        <span
+          style={{
+            display: confirmpass ? "none" : "block",
+            color: "red",
+            fontSize: "12px",
+            alignSelf: "flex-end",
+            marginRight: "5px",
+          }}
+        >
+          * Confirm Password is not same
+        </span>
+
+        <button className="button infoButton" type="submit" disabled={loading}>
+          {loading ? "Loading..." : isSignUp ? "Signup" : "Login"}
+        </button>
+        <div>
           <span
-            style={{
-              display: confirmPass ? "none" : "block",
-              color: "red",
-              fontSize: "12px",
-              alignSelf: "flex-end",
-              marginRight: "5px",
+            className="change-form"
+            onClick={() => {
+              setIsSignUp((prev) => !prev);
+              resetForm();
             }}
           >
-            * Confirm Password is not same
+            {isSignUp
+              ? "Already have an account? Login!"
+              : "Don't have an account? Signup"}
           </span>
-          <div>
-            <button className="button infoButton" type="Submit" disabled={loading}>
-              {loading ? "Loading..." : isSignUp ? "Sign Up" : "Log In"}
-            </button>
-          </div>
-          <div>
-            <span
-              style={{ fontSize: "12px", cursor: "pointer" }}
-              onClick={() => {
-                setIsSignUp((prev) => !prev);
-                resetForm();
-              }}
-            >
-              {isSignUp
-                ? "Already have an account? Login!"
-                : "Don't have an account? Signup!"}
-            </span>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
+
+      {/* </div> */}
     </div>
   );
 };

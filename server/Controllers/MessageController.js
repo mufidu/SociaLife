@@ -1,9 +1,9 @@
-import MessageModel from "../Models/MessageModel.js";
+import MessageModel from "../Models/MessageModel.js"
 
-export const addMessage = async(req, res) => {
+export const addMessage = async(req,res) => {
     const {chatId, senderId, text} = req.body
     const message = new MessageModel({
-        chatId,
+        chatId, 
         senderId,
         text
     })
@@ -15,7 +15,7 @@ export const addMessage = async(req, res) => {
     }
 }
 
-export const getMessages = async(req, res) => {
+export const getMessages = async(req,res) => {
     const {chatId} = req.params
 
     try {

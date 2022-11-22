@@ -4,68 +4,115 @@
     justify-content: center;
     height: 100vh;
     gap: 4rem;
-    position: top;
+    position: relative;
   }
   
-  .Auth > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
+.Auth > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .title{
-      gap: 15rem;
-  }
-  
-  .title > img {
-    width: 15rem;
-    height: 15rem;
-  }
-  
 
-  .infoForm{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+/* left side
+.a-left{
     gap: 2rem;
-  }
+} */
+
+/* .a-left > img {
+  width: 4rem;
+  height: 4rem;
+} */
+
+/* .Webname > h1 {
+    /* font-size: 3rem; */
+    /* background-color: red; */
   
-  .infoInput{
-    border: none;
-    outline: black 1px solid;
-    background-color: var(--inputColor);
-    border-radius: 8px;
-    padding: 20px;
-    flex:1;
-    justify-content: center;
+    /* Create the gradient. */
+    /* background-image: var(--buttonBg); */
+    
+    /* Set the background size and repeat properties. */
+    /* background-size: 100%;
+    background-repeat: repeat; */
+  
+    /* Use the text as a mask for the background. */
+    /* This will show the gradient as a text color rather than element bg. */
+    /* -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent; */
+/* } */ 
+
+/* .Webname>h6{
+    font-size: 0.85rem;
+} */
+
+
+
+.infoForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  border-radius: 1px;
+  border: 1px solid black;
+}
+
+.infoInput{
+  border: none;
+  outline: none;
+  background-color: var(--inputColor);
+  border-radius: 8px;
+  border: 1px solid black;
+  left-border: 5rem;
+  padding: 20px;
+  flex:1;
+}
+
+.infoForm>div{
+  display: flex;
+  gap: 1rem;
+  height: 2rem;
+  width: 90%;
+}
+
+.infoButton{
+  width: 10rem;
+  height: 2.5rem;
+  align-self: flex-center;
+  border-radius: 3rem;
+}
+
+
+.authForm{
+    background-color: var(--cardColor);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.authForm>div{
+    width: 100%;
     align-items: center;
-  }
-  
-  .infoForm>div{
-    display: flex;
-    gap: 1rem;
-    height: 2rem;
-    width: 90%;
-  }
-  
-  .infoButton{
-    width: 20rem;
-    height: 3rem;
-    align-self: flex-end;
-    margin-bottom: -15px;
-  }
-  
-  
-  .authForm{
-      background-color: var(--cardColor);
-      border-radius: 1rem;
-      padding: 1rem;
-  }
-  
-  .authForm>div{
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-  }
+    justify-content: center;
+}
+
+.logo {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.logo > img{
+  width: 20rem;
+  height: 20rem;
+}
+
+.change-form {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.change-form:hover{
+  color: var(--blue);
+}

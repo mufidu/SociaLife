@@ -10,7 +10,7 @@ const UserSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        friends: [] 
+        friends: [] ,
     },
     {timestamps: true}
 )

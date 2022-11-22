@@ -1,41 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { getUser } from "../../api/UserRequest";
-import person_logo from "../../img/person-circle.svg";
-import "./Conversation.css";
+import person from "../../img/person-circle.svg";
 
-const Conversation = ({ data, currentUser }) => {
+const Conversation = ({ data, currentUserId }) => {
   const [userData, setUserData] = useState(null);
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-        const userId = data.members.find((id) => id !== currentUser)
-        const getUserData = async () => {
-            try {
-                const {data} = await getUser(userId)
-                setUserData(data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getUserData()
-    }, [currentUser, data.members])
+  useEffect(() => {
+    const userId = data.members.find((id) => id !== currentUserId);
+    const getUserData = async () => {
+      try {
+        const { data } = await getUser(userId);
+        setUserData(data);
+        console.log("DATA:", data)
+        dispatch({type:"SAVE_USER", data: data})
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserData();
+  }, []);
+
+  
 
   return (
     <>
-      <div className="friend conversation">
+      <div className="follower conversation">
         <div>
+          {/* <div className="online-dot"></div> */}
           <img
-            src={person_logo}
-            alt="Profile"
-            style={{ width: "32px", height: "32px" }}
+            src={person}
+            alt=""
+            className="followerImage"
+            style={{ width: "50px", height: "50px" }}
           />
-          <span style={{ fontSize: "1.5rem", marginLeft: '1rem' }}>
-            {userData?.username}
-          </span>
+          <div className="name" style={{ fontSize: "1.5rem" }}>
+            <span>{userData?.username}</span>
+          </div>
         </div>
       </div>
-      <hr style={{ width: "85%", border: "0.1px solid #ececec" }} />
+      <hr style={{ width: '100%', border: '0.1px solid #ececec' }}/>
     </>
   );
 };
