@@ -1,16 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import { userChats } from "../../api/ChatRequest";
 import addFriend from "../../img/add-user.png";
-// import { UilSetting } from "@iconscout/react-unicons";
-// import Home from "../../img/home.png";
-// import Noti from "../../img/noti.png";
-// import Comment from "../../img/comment.png";
 import Conversation from "../../components/Conversation/Conversation";
-// import * as UserApi from "../../api/UserRequest.js";
-// import LogoSearch from "../../components/LogoSearch/LogoSearch";
 import "./Chat.css";
 import ChatBox from "../../components/ChatBox/ChatBox";
 import { io } from "socket.io-client";
@@ -19,8 +12,6 @@ import profile from "../../img/person-fill.svg";
 import { logOut } from "../../actions/AuthAction";
 import ProfileModal from "../../components/ProfileModal.jsx/ProfileModal";
 import FriendModal from "../../components/FriendModal/FriendModal";
-// import { useParams } from "react-router-dom";
-// import InfoCard from "../../components/InfoCard/InfoCard";
 
 const Chat = () => {
   const [profileModalOpened, setProfileModalOpened] = useState(false);
