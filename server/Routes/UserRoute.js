@@ -1,13 +1,14 @@
 import express from "express";
-import { addUser, deleteUser, getAllUsers, getUser, removeUser, updateUser } from "../Controllers/UserController.js";
+import UserController from "../Controllers/UserController.js";
 // import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 
 const router = express.Router();
 
-router.get('/', getAllUsers)
-router.get('/:id', getUser)
-router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
-router.put("/:id/add", addUser);
-router.put("/:id/remove", removeUser);
+const controller = new UserController();
+router.get('/', controller.getAllUsers)
+router.get('/:id', controller.getUser)
+router.put("/:id", controller.updateUser);
+router.delete("/:id", controller.deleteUser);
+router.put("/:id/add", controller.addUser);
+router.put("/:id/remove", controller.removeUser);
 export default router;
