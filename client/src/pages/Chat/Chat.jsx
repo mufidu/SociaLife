@@ -37,7 +37,7 @@ const Chat = () => {
     const getChats = async () => {
       try {
         const { data } = await userChats(user._id);
-        setChats(data.Chat);
+        setChats(data);
       } catch (error) {
         console.log(error);
       }
@@ -80,7 +80,7 @@ const Chat = () => {
           <img
             src={logo}
             alt=""
-            style={{ width: "50px", height: "50px", cursor: "pointer" }}
+            style={{ width: "45px", height: "50px", cursor: "pointer" }}
             onClick={refreshPage}
           />
         </div>
