@@ -30,14 +30,14 @@ const Chat = () => {
 
   const refreshPage = () => {
     window.location.reload(false);
-  }
+  };
 
   // get the chat in chat section
   useEffect(() => {
     const getChats = async () => {
       try {
         const { data } = await userChats(user._id);
-        setChats(data);
+        setChats(data.Chat);
       } catch (error) {
         console.log(error);
       }
