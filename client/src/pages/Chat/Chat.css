@@ -5,15 +5,10 @@
   gap: 1rem;
 }
 
-
 .Side-bar-chat{
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.logo{
-  margin-top: 1.7rem;
 }
 
 .profile{
@@ -41,7 +36,7 @@
 }
 
 .Chat-header {
-  margin-top: 5px
+  margin-top: 15px
 }
 
 .Chat-header > img {
@@ -105,10 +100,9 @@
 
 .logout-button{
     position: absolute;
-    bottom: 1rem;
-    left: -0.4rem;
+    bottom: 0;
     width: 4rem;
-    /* height: rem; */
+    height: 2rem;
     background-color: var(--red);
 }
 

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Auth = () => {
   const dispatch = useDispatch();
-
+  
   const loading = useSelector((state) => state.authReducer.loading);
 
   // pengecekan kondisi sudah sign up atau belum, jika belum menampilkan halaman login
@@ -34,10 +34,10 @@ const Auth = () => {
     // cek sedang berada di halaman apa
     if (isSignUp) {
       // pengkondisian konfirmasi password
-      if (data.password === data.confirmpass) {
-        dispatch(signUp(data));
+      if(data.password === data.confirmpass){
+        dispatch(signUp(data))
       } else {
-        setConfirmPass(false);
+        setConfirmPass(false)
       }
     } else {
       dispatch(logIn(data));

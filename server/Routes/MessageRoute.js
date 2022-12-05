@@ -1,10 +1,9 @@
 import express from 'express'
-import MessageController from '../Controllers/MessageController.js'
+import { addMessage, getMessages } from '../Controllers/MessageController.js'
 
 const router = express.Router()
 
-const controller = new MessageController()
-router.post('/', controller.addMessage)
-router.get('/:chatId', controller.getMessages)
+router.post('/', addMessage)
+router.get('/:chatId', getMessages)
 
 export default router
