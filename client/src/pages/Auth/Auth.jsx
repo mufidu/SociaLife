@@ -29,6 +29,7 @@ const Auth = () => {
 
   // submit form ke backend-server
   const handleSubmit = (e) => {
+    // cegah browse mengeksekusi action default
     e.preventDefault();
 
     // cek sedang berada di halaman apa
