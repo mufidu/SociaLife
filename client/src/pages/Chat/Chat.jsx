@@ -30,7 +30,7 @@ const Chat = () => {
 
   const refreshPage = () => {
     window.location.reload(false);
-  }
+  };
 
   // get the chat in chat section
   useEffect(() => {
@@ -80,7 +80,7 @@ const Chat = () => {
           <img
             src={logo}
             alt=""
-            style={{ width: "50px", height: "50px", cursor: "pointer" }}
+            style={{ width: "45px", height: "50px", cursor: "pointer" }}
             onClick={refreshPage}
           />
         </div>
