@@ -41,7 +41,7 @@ class UserController{
   // update a user
   updateUser = async (req, res) => {
     const id = req.params.id;
-    const { _id, currentUserAdminStatus, password } = req.body;
+    const { _id, password } = req.body;
   
     if (id === _id) {
       try {
@@ -97,7 +97,6 @@ class UserController{
       try {
         const addedUser = await UserModel.findById(id);
         const adderUser = await UserModel.findById(_id);
-  
         if (!addedUser.friends.includes(_id)) {
           await addedUser.updateOne({ $push: { friends: _id } });
           await adderUser.updateOne({ $push: { friends: id } });

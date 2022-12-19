@@ -3,28 +3,28 @@ const authReducer = (
   action
 ) => {
   switch (action.type) {
-    case "AUTH_START":
+    case 'AUTH_START':
       return { ...state, loading: true, error: false };
-    case "AUTH_SUCCESS":
-      localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+    case 'AUTH_SUCCESS':
+      localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
       return { ...state, authData: action.data, loading: false, error: false };
-    case "AUTH_FAIL":
+    case 'AUTH_FAIL':
       return { ...state, loading: false, error: true };
 
-    case "UPDATING_START":
+    case 'UPDATING_START':
       return { ...state, updateLoading: true, error: false };
-    case "UPDATING_SUCCESS":
-      localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+    case 'UPDATING_SUCCESS':
+      localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
       return {
         ...state,
         authData: action.data,
         updateLoading: false,
         error: false,
       };
-    case "UPDATING_FAIL":
+    case 'UPDATING_FAIL':
       return { ...state, updateLoading: false, error: true };
 
-    case "ADD_USER":
+    case 'ADD_USER':
       return {
         ...state,
         authData: {
@@ -36,7 +36,7 @@ const authReducer = (
         },
       };
 
-    case "REMOVE_USER":
+    case 'REMOVE_USER':
       return {
         ...state,
         authData: {
@@ -52,7 +52,7 @@ const authReducer = (
         },
       };
 
-    case "LOG_OUT":
+    case 'LOG_OUT':
       localStorage.clear();
       return { ...state, authData: null, loading: false, error: false };
     default:

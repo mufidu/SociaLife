@@ -23,7 +23,6 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
 
     let UserData = formData;
     dispatch(updateUser(user._id, UserData))
-    alert("Data updated successfully")
     setModalOpened(false)
   }
   

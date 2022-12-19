@@ -7,12 +7,12 @@ export const logIn = (formData) => async (dispatch) => {
     const { data } = await AuthApi.logIn(formData);
     // memberi tahu reducer bahwa autentikasi berhasil
     dispatch({ type: "AUTH_SUCCESS", data: data });
-    alert("Login successful")
+    alert("login berhasil")
   } catch (error) {
     console.log(error);
     // memberi tahu reducer bahwa autentikasi gagal
     dispatch({ type: "AUTH_FAIL" });
-    alert("Login failed")
+    alert("login gagal, coba cek lagi username dan password yang dimasukkin")
   }
 };
 
@@ -23,15 +23,17 @@ export const signUp = (formData) => async (dispatch) => {
     const { data } = await AuthApi.signUp(formData);
     // memberi tahu reducer bahwa autentikasi berhasil
     dispatch({ type: "AUTH_SUCCESS", data: data });
-    alert("Registration successful")
+    alert("registrasi berhasil")
   } catch (error) {
     console.log(error);
     // memberi tahu reducer bahwa autentikasi gagal
     dispatch({ type: "AUTH_FAIL" });
-    alert("Registration failed")
+    alert("registrasi gagal, username yang kamu mau udah ada yang punya nih, ganti aja ya")
   }
 };
 
 export const logOut = () => async (dispatch) => {
-  dispatch({ type: "LOG_OUT" });
+  if (window.confirm("yakin mau keluar? ga kepencet kan?") === true) {
+    dispatch({ type: 'LOG_OUT' });
+  }
 }; 

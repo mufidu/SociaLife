@@ -1,15 +1,14 @@
-import { Modal, useMantineTheme } from "@mantine/core";
-import { useEffect, useState } from "react";
-import { getAllUser } from "../../api/UserRequest";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../actions/UserAction.js";
+import { Modal, useMantineTheme } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import { getAllUser } from '../../api/UserRequest';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../../actions/UserAction.js';
 
-import * as ChatApi from "../../api/ChatRequest";
-
+import * as ChatApi from '../../api/ChatRequest';
 
 function FriendModal({ modalOpened, setModalOpened }) {
   const theme = useMantineTheme();
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState('');
   const [persons, setPersons] = useState([]);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -26,35 +25,48 @@ function FriendModal({ modalOpened, setModalOpened }) {
     setFormData({ ...FormData, [e.target.name]: e.target.value });
   };
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
       let usernameFriend = formData.username;
-      for (let i = 0; i < persons.length; i++) {
-        if (persons[i].username === usernameFriend) {
-          dispatch(addUser(persons[i]._id, user));
-          alert("User found! User added successfully")
-          const dataCreateChat = {
-            senderId: user._id,
-            receiverId: persons[i]._id,
-          };
-          ChatApi.createChat(dataCreateChat);
-          break;
+
+      if (usernameFriend === user.username) {
+        alert('gaboleh nambahin diri sendiri');
+      } else {
+        const friend = persons.filter((f) => f.username === usernameFriend);
+        if (friend.length === 0) {
+          alert('usernya ga ketemu, coba cek lagi');
+        } else {
+          const isAdded = user.friends.filter((fr) => fr === friend[0]._id);
+          if (isAdded.length > 0) {
+            alert('user udah pernah ditambah');
+          } else {
+            for (let i = 0; i < persons.length; i++) {
+              if (persons[i].username === usernameFriend) {
+                console.log(persons[i]._id);
+                dispatch(addUser(persons[i]._id, user));
+                const dataCreateChat = {
+                  senderId: user._id,
+                  receiverId: persons[i]._id,
+                };
+                ChatApi.createChat(dataCreateChat);
+                window.location.reload(false);
+                break;
+              }
+            }
+          }
         }
       }
-    //   alert("User not found");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     setModalOpened(false);
   };
   return (
     <Modal
       overlayColor={
-        theme.colorScheme === "dark"
+        theme.colorScheme === 'dark'
           ? theme.colors.dark[9]
           : theme.colors.gray[2]
       }

@@ -6,6 +6,7 @@ import UserController from "../Controllers/UserController.js";
 const router = express.Router();
 
 let user = new UserController();
+
 router.get('/', user.getAllUsers)
 router.get("/:id", user.getUser);
 router.put("/:id", user.updateUser);
