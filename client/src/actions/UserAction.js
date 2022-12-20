@@ -1,4 +1,6 @@
 import * as UserApi from '../api/UserRequest';
+import * as ChatApi from '../api/ChatRequest';
+import axios from 'axios';
 
 export const updateUser = (id, formData) => async (dispatch) => {
   dispatch({ type: 'UPDATING_START' });
@@ -17,17 +19,22 @@ export const updateUser = (id, formData) => async (dispatch) => {
 };
 
 export const addUser = (id, data) => async (dispatch) => {
-  dispatch({ type: 'ADD_USER' });
-  if (
-    window.confirm('user ketemu nih, yakin mau nambah dia sebagai teman?') ===
-    true
-  ) {
+  try {
+    dispatch({ type: 'ADD_USER' });
+
+    const response = await axios.put(`http://localhost:5000/user/${id}/add`, data);
+
     UserApi.addUser(id, data);
-    alert('sip, usernya udah ketambah, coba cek list chatnya');
-  } else {
-    alert('ok, gajadi nambahin dia ya');
+
+    const dataCreateChat = {
+      senderId: data._id,
+      receiverId: id,
+    };
+    ChatApi.createChat(dataCreateChat);
+    alert('sip, usernya udah ketambah, coba di refresh dulu kalau belum muncul ya');
+  } catch (error) {
+    alert('lo gaboleh nambah orang yang sama lagi ye')
   }
-  
 };
 
 export const removeUser = (id, data) => async (dispatch) => {
