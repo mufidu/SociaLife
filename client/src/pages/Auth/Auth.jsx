@@ -35,10 +35,14 @@ const Auth = () => {
     // cek sedang berada di halaman apa
     if (isSignUp) {
       // pengkondisian konfirmasi password
-      if (data.password === data.confirmpass) {
-        dispatch(signUp(data));
+      if (data.password.length < 8) {
+        alert('passwordnya minimal 8 huruf ya :))')
       } else {
-        setConfirmPass(false);
+        if (data.password === data.confirmpass) {
+          dispatch(signUp(data));
+        } else {
+          setConfirmPass(false);
+        }
       }
     } else {
       dispatch(logIn(data));

@@ -21,8 +21,14 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    let UserData = formData;
-    dispatch(updateUser(user._id, UserData))
+    if(formData.password.length < 8) {
+      alert('passwordnya minimal 8 huruf ya');
+    } else {
+      if(formData.password === formData.confirmpass) {
+        let UserData = formData;
+        dispatch(updateUser(user._id, UserData));
+      }
+    }
     setModalOpened(false)
   }
   
