@@ -1,8 +1,9 @@
 import { Modal, useMantineTheme } from "@mantine/core";
 // import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateUser } from "../../actions/UserAction";
+import { getAllUser } from "../../api/UserRequest";
 
 
 
@@ -10,9 +11,18 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const theme = useMantineTheme();
   const {password, ...other} = data;
   const [formData, setFormData] = useState(other);
+  const [persons, setPersons] = useState([]);
   const dispatch = useDispatch()
   // const param = useParams()
   const {user} = useSelector((state)=>state.authReducer.authData)
+
+  useEffect(() => {
+    const fetchPersons = async () => {
+      const { data } = await getAllUser();
+      setPersons(data);
+    };
+    fetchPersons();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value})
@@ -21,15 +31,30 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if(formData.password.length < 8) {
-      alert('passwordnya minimal 8 huruf ya');
+    if (persons.filter(p => p.username === formData.username).length > 0 && !formData.username === user.username) {
+      alert('usernamenya udah ada yang pake tuh, ganti ya');
     } else {
-      if(formData.password === formData.confirmpass) {
-        let UserData = formData;
-        dispatch(updateUser(user._id, UserData));
+      if(formData.password.length < 8) {
+        alert('passwordnya minimal 8 huruf ya');
+      } else {
+        if(formData.password === formData.confirmpass) {
+          let UserData = formData;
+          dispatch(updateUser(user._id, UserData));
+        } else {
+          alert('passwordnya ga sesuai')
+        }
       }
     }
     setModalOpened(false)
+  }
+
+  const resetFormData = () => {
+    setFormData({
+      username: user.username,
+      password: '',
+      confirmpass: '',
+    });
+    setModalOpened(false);
   }
   
   return (
@@ -43,7 +68,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       overlayBlur={3}
       size="55%"
       opened={modalOpened}
-      onClose={() => setModalOpened(false)}
+      onClose={() => resetFormData()}
     >
       <form className="infoForm">
         <h3>Customize</h3>
