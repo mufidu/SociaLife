@@ -11,13 +11,18 @@ function App() {
   const [AlertModalOpened, setAlertModalOpened] = useState(false);
   
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAlertModalOpened(true);
-      alert("TIMER DEFINITELY WORKS!");
-    }, 900000); //15 minute, change to test faster
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setAlertModalOpened(true);
+  //     alert("TIMER DEFINITELY WORKS!");
+  //   }, 1000); //15 minute, change to test faster
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+  setTimeout(() => {
+    setAlertModalOpened(true);
+  }, 15000)
+
 
   return (
     <div className="App">

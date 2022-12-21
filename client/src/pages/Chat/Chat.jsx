@@ -12,10 +12,12 @@ import profile from "../../img/person-fill.svg";
 import { logOut } from "../../actions/AuthAction";
 import ProfileModal from "../../components/ProfileModal.jsx/ProfileModal";
 import FriendModal from "../../components/FriendModal/FriendModal";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 const Chat = () => {
   const [profileModalOpened, setProfileModalOpened] = useState(false);
   const [friendModalOpened, setFriendModalOpened] = useState(false);
+  const [AlertModalOpened, setAlertModalOpened] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -68,12 +70,24 @@ const Chat = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertModalOpened(true);
+      alert("TIMER DEFINITELY WORKS!");
+    }, 1000); //15 minute, change to test faster
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleLogout = () => {
     dispatch(logOut());
   };
 
   return (
     <div className="Chat">
+      <AlertModal
+        modalOpened={AlertModalOpened}
+        setModalOpened={setAlertModalOpened}
+      />
       {/* side bar */}
       <div className="Side-bar-chat">
         <div className="logo">
