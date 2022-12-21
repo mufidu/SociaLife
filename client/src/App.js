@@ -11,25 +11,9 @@ function App() {
   const [AlertModalOpened, setAlertModalOpened] = useState(false);
   
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setAlertModalOpened(true);
-  //     alert("TIMER DEFINITELY WORKS!");
-  //   }, 1000); //15 minute, change to test faster
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-  setTimeout(() => {
-    setAlertModalOpened(true);
-  }, 15000)
-
 
   return (
     <div className="App">
-      <AlertModal
-        modalOpened={AlertModalOpened}
-        setModalOpened={setAlertModalOpened}
-      />
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>
       <div className="blur" style={{ top: '36%', left: '-8rem' }}></div>
       <Routes>
