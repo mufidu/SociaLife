@@ -1,18 +1,20 @@
-import React, { useRef, useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userChats } from "../../api/ChatRequest";
-import addFriend from "../../img/add-user.png";
-import Conversation from "../../components/Conversation/Conversation";
-import "./Chat.css";
-import ChatBox from "../../components/ChatBox/ChatBox";
-import { io } from "socket.io-client";
-import logo from "../../img/small_logo.png";
-import profile from "../../img/person-fill.svg";
-import { logOut } from "../../actions/AuthAction";
-import ProfileModal from "../../components/ProfileModal.jsx/ProfileModal";
-import FriendModal from "../../components/FriendModal/FriendModal";
-import AlertModal from "../../components/AlertModal/AlertModal";
+import React, { useRef, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { userChats } from '../../api/ChatRequest';
+import { getMessages } from '../../api/MessageRequest';
+import addFriend from '../../img/add-user.png';
+import Conversation from '../../components/Conversation/Conversation';
+import './Chat.css';
+import ChatBox from '../../components/ChatBox/ChatBox';
+import { io } from 'socket.io-client';
+import logo from '../../img/small_logo.png';
+import profile from '../../img/person-fill.svg';
+import { logOut } from '../../actions/AuthAction';
+import ProfileModal from '../../components/ProfileModal.jsx/ProfileModal';
+import FriendModal from '../../components/FriendModal/FriendModal';
+import AlertModal from '../../components/AlertModal/AlertModal';
+import { format } from 'timeago.js';
 
 const Chat = () => {
   const [profileModalOpened, setProfileModalOpened] = useState(false);
@@ -30,10 +32,6 @@ const Chat = () => {
   const [receiveMessage, setReceiveMessage] = useState(null);
   const socket = useRef();
 
-  const refreshPage = () => {
-    window.location.reload(false);
-  };
-
   // get the chat in chat section
   useEffect(() => {
     const getChats = async () => {
@@ -47,11 +45,12 @@ const Chat = () => {
     getChats();
   }, [user._id]);
 
+
   // connect to socket.io
   useEffect(() => {
-    socket.current = io("http://localhost:8800", { transports: ["websocket"] });
-    socket.current.emit("new-user-add", user._id);
-    socket.current.on("get-users", (users) => {
+    socket.current = io('http://localhost:8800', { transports: ['websocket'] });
+    socket.current.emit('new-user-add', user._id);
+    socket.current.on('get-users', (users) => {
       setOnlineUsers(users);
     });
   }, [user]);
@@ -59,24 +58,30 @@ const Chat = () => {
   // send message to socket server
   useEffect(() => {
     if (sendMessage !== null) {
-      socket.current.emit("send-message", sendMessage);
+      socket.current.emit('send-message', sendMessage);
     }
   }, [sendMessage]);
 
   // receive message from socket server
   useEffect(() => {
-    socket.current.on("receive-message", (data) => {
+    socket.current.on('receive-message', (data) => {
       setReceiveMessage(data);
     });
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAlertModalOpened(true);
-      alert("TIMER DEFINITELY WORKS!");
-    }, 1000); //15 minute, change to test faster
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setAlertModalOpened(true);
+  //     alert("TIMER DEFINITELY WORKS!");
+  //   }, 1000); //15 minute, change to test faster
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+  const checkLastMessage = async(chat) => {
+    const { data } = await getMessages(chat._id);
+    const lastMessage = format(data[data.length - 1].createdAt);
+    return lastMessage;
+  }
 
   const handleLogout = () => {
     dispatch(logOut());
@@ -94,15 +99,14 @@ const Chat = () => {
           <img
             src={logo}
             alt=""
-            style={{ width: "45px", height: "50px", cursor: "pointer" }}
-            onClick={refreshPage}
+            style={{ width: '45px', height: '50px', cursor: 'pointer' }}
           />
         </div>
         <div className="profile">
           <img
             src={profile}
             alt=""
-            style={{ width: "50px", height: "50px", cursor: "pointer" }}
+            style={{ width: '50px', height: '50px', cursor: 'pointer' }}
             onClick={() => setProfileModalOpened(true)}
           />
           <ProfileModal
@@ -121,11 +125,11 @@ const Chat = () => {
       <div className="Left-side-chat">
         <div className="Chat-container">
           <div className="Chat-header">
-            <span style={{ fontWeight: "bold", fontSize: "40px" }}>Chats</span>
+            <span style={{ fontWeight: 'bold', fontSize: '40px' }}>Chats</span>
             <img
               src={addFriend}
               alt=""
-              style={{ width: "40px", height: "40px", cursor: "pointer" }}
+              style={{ width: '40px', height: '40px', cursor: 'pointer' }}
               onClick={() => setFriendModalOpened(true)}
             />
             <FriendModal
@@ -137,7 +141,11 @@ const Chat = () => {
           <div className="Chat-list">
             {chats.map((chat) => (
               <div onClick={() => setCurrentChat(chat)}>
-                <Conversation data={chat} currentUserId={user._id} />
+                <Conversation
+                  data={chat}
+                  currentUserId={user._id}
+                  reminder={checkLastMessage(chat)}
+                />
               </div>
             ))}
           </div>

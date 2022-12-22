@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { format } from "timeago.js";
+import { getMessages } from "../../api/MessageRequest";
 import { getUser } from "../../api/UserRequest";
 import person from "../../img/person-circle.svg";
 
-const Conversation = ({ data, currentUserId }) => {
+const Conversation = ({ data, currentUserId, reminder }) => {
   const [userData, setUserData] = useState(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const userId = data.members.find((id) => id !== currentUserId);
@@ -14,7 +16,7 @@ const Conversation = ({ data, currentUserId }) => {
       try {
         const { data } = await getUser(userId);
         setUserData(data);
-        dispatch({type:"SAVE_USER", data: data})
+        dispatch({ type: 'SAVE_USER', data: data });
       } catch (error) {
         console.log(error);
       }
@@ -22,23 +24,29 @@ const Conversation = ({ data, currentUserId }) => {
     getUserData();
   }, []);
 
+  const checkLastMessage = async(data) => {
+    const { messages } = await getMessages(data._id);
+    const lastMessage = format(messages[messages.length - 1].createdAt);
+    console.log(lastMessage);
+  }
+  checkLastMessage(data);
+
   return (
     <>
       <div className="follower conversation">
         <div>
-          {/* <div className="online-dot"></div> */}
           <img
             src={person}
             alt=""
             className="followerImage"
-            style={{ width: "50px", height: "50px" }}
+            style={{ width: '50px', height: '50px' }}
           />
-          <div className="name" style={{ fontSize: "1.5rem" }}>
+          <div className="name" style={{ fontSize: '1.5rem' }}>
             <span>{userData?.username}</span>
           </div>
         </div>
       </div>
-      <hr style={{ width: '100%', border: '0.1px solid #ececec' }}/>
+      <hr style={{ width: '100%', border: '0.1px solid #ececec' }} />
     </>
   );
 };

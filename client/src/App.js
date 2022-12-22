@@ -3,12 +3,12 @@ import Auth from './pages/Auth/Auth';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Chat from './pages/Chat/Chat';
-import { useEffect, useState } from 'react';
-import AlertModal from './components/AlertModal/AlertModal';
+// import { useEffect, useState } from 'react';
+// import AlertModal from './components/AlertModal/AlertModal';
 
 function App() {
   const user = useSelector((state) => state.authReducer.authData);
-  const [AlertModalOpened, setAlertModalOpened] = useState(false);
+  // const [AlertModalOpened, setAlertModalOpened] = useState(false);
   
 
 
