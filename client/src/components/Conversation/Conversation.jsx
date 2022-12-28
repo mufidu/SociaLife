@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { format } from "timeago.js";
@@ -6,12 +7,13 @@ import { getMessages } from "../../api/MessageRequest";
 import { getUser } from "../../api/UserRequest";
 import person from "../../img/person-circle.svg";
 
-const Conversation = ({ data, currentUserId, reminder }) => {
+const Conversation = ({ chat, currentUserId }) => {
+  let remind = useRef();
   const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const userId = data.members.find((id) => id !== currentUserId);
+    const userId = chat.members.find((id) => id !== currentUserId);
     const getUserData = async () => {
       try {
         const { data } = await getUser(userId);
@@ -24,12 +26,20 @@ const Conversation = ({ data, currentUserId, reminder }) => {
     getUserData();
   }, []);
 
-  const checkLastMessage = async(data) => {
-    const { messages } = await getMessages(data._id);
-    const lastMessage = format(messages[messages.length - 1].createdAt);
-    console.log(lastMessage);
-  }
-  checkLastMessage(data);
+  useEffect(() => {
+    const checkLastMessage = async(chat) => {
+      try {
+        const { data } = await getMessages(chat._id);
+        const lastMessage = format(data[data.length - 1].createdAt)
+        if (lastMessage === '20 minutes ago') {
+          remind.current = true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkLastMessage(chat);
+  }, [chat]);
 
   return (
     <>
@@ -43,6 +53,7 @@ const Conversation = ({ data, currentUserId, reminder }) => {
           />
           <div className="name" style={{ fontSize: '1.5rem' }}>
             <span>{userData?.username}</span>
+            <span>{remind.current ? 'chat now' : 'relax bro'}</span>
           </div>
         </div>
       </div>

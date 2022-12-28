@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userChats } from '../../api/ChatRequest';
-import { getMessages } from '../../api/MessageRequest';
 import addFriend from '../../img/add-user.png';
 import Conversation from '../../components/Conversation/Conversation';
 import './Chat.css';
@@ -14,7 +13,7 @@ import { logOut } from '../../actions/AuthAction';
 import ProfileModal from '../../components/ProfileModal.jsx/ProfileModal';
 import FriendModal from '../../components/FriendModal/FriendModal';
 import AlertModal from '../../components/AlertModal/AlertModal';
-import { format } from 'timeago.js';
+import { getMessages } from '../../api/MessageRequest';
 
 const Chat = () => {
   const [profileModalOpened, setProfileModalOpened] = useState(false);
@@ -77,12 +76,6 @@ const Chat = () => {
   //   return () => clearTimeout(timer);
   // }, []);
 
-  const checkLastMessage = async(chat) => {
-    const { data } = await getMessages(chat._id);
-    const lastMessage = format(data[data.length - 1].createdAt);
-    return lastMessage;
-  }
-
   const handleLogout = () => {
     dispatch(logOut());
   };
@@ -142,9 +135,8 @@ const Chat = () => {
             {chats.map((chat) => (
               <div onClick={() => setCurrentChat(chat)}>
                 <Conversation
-                  data={chat}
+                  chat={chat}
                   currentUserId={user._id}
-                  reminder={checkLastMessage(chat)}
                 />
               </div>
             ))}
