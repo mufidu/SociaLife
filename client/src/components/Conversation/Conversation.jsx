@@ -53,7 +53,7 @@ const Conversation = ({ chat, currentUserId }) => {
           />
           <div className="name" style={{ fontSize: '1.5rem' }}>
             <span>{userData?.username}</span>
-            <span>{remind.current ? 'chat now' : 'relax bro'}</span>
+            <span>{remind.current ? 'chat now' : ''}</span>
           </div>
         </div>
       </div>
