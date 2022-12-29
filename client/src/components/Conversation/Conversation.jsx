@@ -24,7 +24,7 @@ const Conversation = ({ chat, currentUserId }) => {
       }
     };
     getUserData();
-  }, []);
+  }, [chat.members, currentUserId, dispatch]);
 
   useEffect(() => {
     const checkLastMessage = async(chat) => {
