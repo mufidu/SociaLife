@@ -30,8 +30,12 @@ const Conversation = ({ chat, currentUserId }) => {
     const checkLastMessage = async(chat) => {
       try {
         const { data } = await getMessages(chat._id);
-        const lastMessage = format(data[data.length - 1].createdAt)
-        if (lastMessage === '20 minutes ago') {
+        const messagedTime = new Date(data[data.length - 1].createdAt).getTime();
+        const currentTime = Date.now();
+
+        const timeDifferenceInHours = ((currentTime - messagedTime) / 1000) / 3600;
+
+        if (timeDifferenceInHours > 24.0) {
           remind.current = true;
         }
       } catch (error) {
@@ -53,7 +57,7 @@ const Conversation = ({ chat, currentUserId }) => {
           />
           <div className="name" style={{ fontSize: '1.5rem' }}>
             <span>{userData?.username}</span>
-            <span>{remind.current ? 'chat now' : ''}</span>
+            <div>{remind.current ? 'chat' : 'relax'}</div>
           </div>
         </div>
       </div>
