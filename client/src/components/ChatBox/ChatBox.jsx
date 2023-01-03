@@ -79,8 +79,6 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     }
   }, [receiveMessage]);
 
-  
-
   return (
     <>
       <div className="ChatBox-container">

@@ -42,6 +42,7 @@ class UserController{
   updateUser = async (req, res) => {
     const id = req.params.id;
     const { _id, password } = req.body;
+
   
     if (id === _id) {
       try {

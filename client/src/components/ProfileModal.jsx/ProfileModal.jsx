@@ -31,17 +31,19 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (persons.filter(p => p.username === formData.username).length > 0 && !formData.username === user.username) {
-      alert('usernamenya udah ada yang pake tuh, ganti ya');
-    } else {
+    const anotherUser = persons.filter(p => p.username === formData.username);
+    
+    
+    if (anotherUser.length > 0 && anotherUser[0].username !== user.username) {
+      alert('Username yang anda inginkan sudah terdaftar');
+    } else if ((anotherUser.length > 0 && anotherUser[0].username === user.username) || anotherUser.length === 0){
       if(formData.password.length < 8) {
-        alert('passwordnya minimal 8 huruf ya');
+        alert('Password minimal 8 karakter');
       } else {
         if(formData.password === formData.confirmpass) {
-          let UserData = formData;
-          dispatch(updateUser(user._id, UserData));
+          dispatch(updateUser(user._id, formData));
         } else {
-          alert('passwordnya ga sesuai')
+          alert('Konfirmasi password tidak sesuai')
         }
       }
     }

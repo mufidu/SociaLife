@@ -35,23 +35,23 @@ function FriendModal({ modalOpened, setModalOpened }) {
       let usernameFriend = formData.username;
 
       if (usernameFriend === user.username) {
-        alert('gaboleh nambahin diri sendiri');
+        alert('Tidak bisa menambah diri sendiri');
       } else {
         // ambil data teman dari username
         const friend = persons.filter((f) => f.username === usernameFriend);
 
         if (friend.length === 0) {
-          alert('usernya ga ketemu, coba cek lagi');
+          alert('User yang anda cari tidak ditemukan, mohon cek username teman anda kembali');
         } else {
           if (
             window.confirm(
-              `yakin mau nambah '${usernameFriend}' sebagai teman loe?`
+              `Yakin ingin menambah '${usernameFriend}' sebagai teman anda?`
             ) === true
           ) {
             console.log(friend[0].username, friend[0]._id);
             dispatch(addUser(friend[0]._id, user));
           } else {
-            alert('ok, gajadi nambahin dia ya');
+            alert('Menambah teman dibatalkan');
           }
         }
       }

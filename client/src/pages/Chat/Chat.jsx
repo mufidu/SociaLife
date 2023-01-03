@@ -12,13 +12,12 @@ import profile from "../../img/person-fill.svg";
 import { logOut } from "../../actions/AuthAction";
 import ProfileModal from "../../components/ProfileModal.jsx/ProfileModal";
 import FriendModal from "../../components/FriendModal/FriendModal";
-import AlertModal from "../../components/AlertModal/AlertModal";
-import { getMessages } from "../../api/MessageRequest";
+// import AlertModal from "../../components/AlertModal/AlertModal";
 
 const Chat = () => {
   const [profileModalOpened, setProfileModalOpened] = useState(false);
   const [friendModalOpened, setFriendModalOpened] = useState(false);
-  const [AlertModalOpened, setAlertModalOpened] = useState(false);
+  // const [AlertModalOpened, setAlertModalOpened] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -69,7 +68,6 @@ const Chat = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // setAlertModalOpened(true);
       alert("Kamu udah di app selama 15 menit! touch some grass pls.");
     }, 900000); //15 minute, change to test faster
     return () => clearTimeout(timer);
@@ -81,10 +79,6 @@ const Chat = () => {
 
   return (
     <div className="Chat">
-      <AlertModal
-        modalOpened={AlertModalOpened}
-        setModalOpened={setAlertModalOpened}
-      />
       {/* side bar */}
       <div className="Side-bar-chat">
         <div className="logo">

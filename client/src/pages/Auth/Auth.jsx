@@ -36,7 +36,7 @@ const Auth = () => {
     if (isSignUp) {
       // pengkondisian konfirmasi password
       if (data.password.length < 8) {
-        alert('passwordnya minimal 8 huruf ya :))')
+        alert('Password minimal 8 karakter')
       } else {
         if (data.password === data.confirmpass) {
           dispatch(signUp(data));

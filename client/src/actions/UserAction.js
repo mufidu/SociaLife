@@ -6,15 +6,15 @@ export const updateUser = (id, formData) => async (dispatch) => {
   dispatch({ type: 'UPDATING_START' });
   try {
     const { data } = await UserApi.updateUser(id, formData);
-    if (window.confirm('yakin mau update data nya?') === true) {
+    if (window.confirm('Yakin ingin mengupdate data anda?') === true) {
       dispatch({ type: 'UPDATING_SUCCESS', data: data });
-      alert('update berhasil brow');
+      alert('Update Berhasil');
     } else {
-      alert('ok, gajadi di update ya');
+      alert('Update Dibatalkan');
     }
   } catch (error) {
     dispatch({ type: 'UPDATING_FAIL' });
-    alert('update gagal, coba cek lagi udah sesuai belum');
+    alert('Update Gagal, mohon refresh terlebih dahulu');
   }
 };
 
@@ -31,9 +31,9 @@ export const addUser = (id, data) => async (dispatch) => {
       receiverId: id,
     };
     ChatApi.createChat(dataCreateChat);
-    alert('sip, usernya udah ketambah, coba di refresh dulu kalau belum muncul ya');
+    alert('User ditambah, mohon refresh terlebih dahulu');
   } catch (error) {
-    alert('lo gaboleh nambah orang yang sama lagi ye')
+    alert('Tidak boleh menambah User yang sudah menjadi teman')
   }
 };
 

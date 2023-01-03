@@ -6,6 +6,7 @@ import { format } from "timeago.js";
 import { getMessages } from "../../api/MessageRequest";
 import { getUser } from "../../api/UserRequest";
 import person from "../../img/person-circle.svg";
+import warning from "../../img/warning.png"
 
 const Conversation = ({ chat, currentUserId }) => {
   let remind = useRef();
@@ -34,7 +35,7 @@ const Conversation = ({ chat, currentUserId }) => {
         const currentTime = Date.now();
 
         const timeDifferenceInHours = ((currentTime - messagedTime) / 1000) / 3600;
-
+        console.log(timeDifferenceInHours)
         if (timeDifferenceInHours > 24.0) {
           remind.current = true;
         }
@@ -55,9 +56,18 @@ const Conversation = ({ chat, currentUserId }) => {
             className="followerImage"
             style={{ width: '50px', height: '50px' }}
           />
+          {remind.current ? (
+            <img
+              src={warning}
+              alt=""
+              className="reminder"
+              style={{ width: '30px', height: '30px', position: 'absolute', top: '-10px', left: '30px' }}
+            ></img>
+          ) : (
+            ""
+          )}
           <div className="name" style={{ fontSize: '1.5rem' }}>
             <span>{userData?.username}</span>
-            <div>{remind.current ? 'chat' : 'relax'}</div>
           </div>
         </div>
       </div>
