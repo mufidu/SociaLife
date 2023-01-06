@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { format } from "timeago.js";
 import { getMessages } from "../../api/MessageRequest";
 import { getUser } from "../../api/UserRequest";
 import person from "../../img/person-circle.svg";
@@ -46,6 +45,10 @@ const Conversation = ({ chat, currentUserId }) => {
     checkLastMessage(chat);
   }, [chat]);
 
+  const showRemindMessage = () => {
+    alert(`Anda sudah tidak berkontak dengan '${userData.username}' selama 14 hari. Ayo kirim pesan sekarang!`)
+  }
+
   return (
     <>
       <div className="follower conversation">
@@ -62,6 +65,7 @@ const Conversation = ({ chat, currentUserId }) => {
               alt=""
               className="reminder"
               style={{ width: '30px', height: '30px', position: 'absolute', top: '-10px', left: '30px' }}
+              onClick={ showRemindMessage }
             ></img>
           ) : (
             ""

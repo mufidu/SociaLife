@@ -7,7 +7,7 @@ export const logIn = (formData) => async (dispatch) => {
     const { data } = await AuthApi.logIn(formData);
     // memberi tahu reducer bahwa autentikasi berhasil
     dispatch({ type: "AUTH_SUCCESS", data: data });
-    alert("login berhasil")
+    alert("Login berhasil")
   } catch (error) {
     console.log(error);
     // memberi tahu reducer bahwa autentikasi gagal
@@ -37,3 +37,4 @@ export const logOut = () => async (dispatch) => {
     dispatch({ type: 'LOG_OUT' });
   }
 }; 
+
