@@ -39,7 +39,6 @@ class AuthController{
   
   
   // login User
-  
   loginUser = async (req, res) => {
     const { username, password } = req.body;
   

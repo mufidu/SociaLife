@@ -43,17 +43,18 @@ class UserController{
     const id = req.params.id;
     const { _id, password } = req.body;
 
-  
+    // cek apakah user sesuai
     if (id === _id) {
       try {
         if (password) {
           const salt = await bcrypt.genSalt(10);
           req.body.password = await bcrypt.hash(password, salt);
         }
-  
+        // cari data user yang ingin diubah
         const user = await UserModel.findByIdAndUpdate(id, req.body, {
           new: true,
         });
+        // ubah data user
         const token = jwt.sign(
           { username: user.username, id: user._id },
           process.env.JWT_KEY,
@@ -96,9 +97,12 @@ class UserController{
       res.status(403).json("Action forbidden");
     } else {
       try {
+        // cari data user yang menambah dan ditambah
         const addedUser = await UserModel.findById(id);
         const adderUser = await UserModel.findById(_id);
+        // jika belum pernah ditambah, maka akan ditambah
         if (!addedUser.friends.includes(_id)) {
+          // menambah data User di masing2 atribut Friends 
           await addedUser.updateOne({ $push: { friends: _id } });
           await adderUser.updateOne({ $push: { friends: id } });
           res.status(200).json("User added!");

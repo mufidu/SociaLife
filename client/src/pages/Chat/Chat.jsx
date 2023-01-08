@@ -66,6 +66,7 @@ const Chat = () => {
     });
   }, []);
 
+  // alert timer
   useEffect(() => {
     const timer = setTimeout(() => {
       alert("Kamu udah di app selama 15 menit! touch some grass pls.");

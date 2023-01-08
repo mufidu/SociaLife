@@ -29,13 +29,16 @@ const Conversation = ({ chat, currentUserId }) => {
   useEffect(() => {
     const checkLastMessage = async(chat) => {
       try {
+        // ambil data semua pesan antara user tersebut
         const { data } = await getMessages(chat._id);
+
+        // hitung perbedaan waktu dari pesan terakhir dengan waktu sekarang dalam format jam 
         const messagedTime = new Date(data[data.length - 1].createdAt).getTime();
         const currentTime = Date.now();
-
         const timeDifferenceInHours = ((currentTime - messagedTime) / 1000) / 3600;
-        console.log(timeDifferenceInHours)
-        if (timeDifferenceInHours > 24.0) {
+
+        // cek apakah sudah melebihi 14 hari == 336 jam
+        if (timeDifferenceInHours > 336.0) {
           remind.current = true;
         }
       } catch (error) {

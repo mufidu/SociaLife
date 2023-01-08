@@ -60,6 +60,7 @@ function FriendModal({ modalOpened, setModalOpened }) {
     }
     setModalOpened(false);
   };
+  
   return (
     <Modal
       overlayColor={
