@@ -6,11 +6,11 @@ const router = express.Router();
 
 let user = new UserController();
 
-router.get('/', authMiddleWare, user.getAllUsers)
-router.get('/:id', authMiddleWare, user.getUser);
-router.put("/:id", authMiddleWare, user.updateUser);
-router.delete('/:id', authMiddleWare, user.deleteUser);
-router.put('/:id/add', authMiddleWare, user.addUser);
-router.put('/:id/remove', authMiddleWare, user.removeUser);
+router.get('/', user.getAllUsers);
+router.get('/:id', user.getUser);
+router.put('/:id', user.updateUser);
+router.delete('/:id', user.deleteUser);
+router.put('/:id/add', user.addUser);
+router.put('/:id/remove', user.removeUser);
 
 export default router;

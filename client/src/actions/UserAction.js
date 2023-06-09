@@ -33,7 +33,7 @@ export const addUser = (id, data) => async (dispatch) => {
     ChatApi.createChat(dataCreateChat);
     alert('User ditambah, mohon refresh terlebih dahulu');
   } catch (error) {
-    alert('Tidak boleh menambah User yang sudah menjadi teman')
+    alert(' Anda sudah berteman dengan user tersebut')
   }
 };
 

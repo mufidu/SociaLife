@@ -48,7 +48,6 @@ function FriendModal({ modalOpened, setModalOpened }) {
               `Yakin ingin menambah '${usernameFriend}' sebagai teman anda?`
             ) === true
           ) {
-            console.log(friend[0].username, friend[0]._id);
             dispatch(addUser(friend[0]._id, user));
           } else {
             alert('Menambah teman dibatalkan');
