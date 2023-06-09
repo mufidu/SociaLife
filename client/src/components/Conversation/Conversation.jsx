@@ -38,7 +38,7 @@ const Conversation = ({ chat, currentUserId }) => {
         const timeDifferenceInHours = ((currentTime - messagedTime) / 1000) / 3600;
 
         // cek apakah sudah melebihi 14 hari == 336 jam
-        if (timeDifferenceInHours > 336.0) {
+        if (timeDifferenceInHours > 0.01) {
           remind.current = true;
         }
       } catch (error) {

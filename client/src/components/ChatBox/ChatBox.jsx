@@ -10,7 +10,7 @@ import InputEmoji from "react-input-emoji";
 const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState('');
   const scroll = useRef();
 
   const handleChange = (newMessage) => {
@@ -46,7 +46,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
 
   // always scroll to last message
   useEffect(() => {
-    scroll.current?.scrollIntoView({ behavior: "smooth" });
+    scroll.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   // send message
@@ -62,7 +62,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     try {
       const { data } = await addMessage(message);
       setMessages([...messages, data]);
-      setNewMessage("");
+      setNewMessage('');
     } catch (error) {
       console.log(error);
     }
@@ -72,8 +72,9 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     setSendMessage({ ...message, receiverId });
   };
 
-  // receive message
+  // Receive Message from parent component
   useEffect(() => {
+    console.log('Message Arrived: ', receiveMessage);
     if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
       setMessages([...messages, receiveMessage]);
     }
@@ -91,14 +92,14 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
                     src={person}
                     alt=""
                     className="followerImage"
-                    style={{ width: "50px", height: "50px" }}
+                    style={{ width: '50px', height: '50px' }}
                   />
-                  <div className="name" style={{ fontSize: "1.5rem" }}>
+                  <div className="name" style={{ fontSize: '1.5rem' }}>
                     <span>{userData?.username}</span>
                   </div>
                 </div>
               </div>
-              <hr style={{ width: "100%", border: "0.1px solid #ececec" }} />
+              <hr style={{ width: '100%', border: '0.1px solid #ececec' }} />
             </div>
 
             {/* chatbox messages */}
@@ -109,8 +110,8 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
                     ref={scroll}
                     className={
                       message.senderId === currentUser
-                        ? "message own"
-                        : "message"
+                        ? 'message own'
+                        : 'message'
                     }
                   >
                     <span>{message.text}</span>
