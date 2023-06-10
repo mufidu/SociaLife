@@ -9,8 +9,6 @@ import Chat from './pages/Chat/Chat';
 function App() {
   const user = useSelector((state) => state.authReducer.authData);
   // const [AlertModalOpened, setAlertModalOpened] = useState(false);
-  
-
 
   return (
     <div className="App">
